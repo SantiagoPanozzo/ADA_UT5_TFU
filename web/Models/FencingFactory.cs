@@ -2,22 +2,30 @@ using web.Interfaces;
 
 namespace web.Models
 {
-	public class FencingFactory : ISportFactory
+	public class FencingFactory : ISportFactory, IHandler
 	{
-		private FencingFactory _fencingFactory {get; set;}
+		private static FencingFactory _fencingFactory {get; set;}
 		private List<IDiscipline> _disciplines {get; set;}
+		public IHandler? Next {get; set;}
 
-		private FencingFactory()
+		private FencingFactory(IHandler? handler)
 		{
+			Next = handler;
+			_disciplines = new List<IDiscipline>();
 		}
 
-		public ISportFactory getInstance()
+		public static ISportFactory getInstance()
 		{
 			if (_fencingFactory == null)
 			{
-				_fencingFactory = new FencingFactory();
+				_fencingFactory = new FencingFactory(null);
 			}
 			return _fencingFactory;
+		}
+
+		public void Handle()
+		{
+			CreateDisciplines();
 		}
 
 		public List<IDiscipline> CreateDisciplines() {
