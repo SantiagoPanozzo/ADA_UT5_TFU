@@ -23,7 +23,7 @@ public class UsuarioRepository
         {
             throw new ArgumentException("User with that cedula was not found");
         }
-
+    
         return user;
     }
     
