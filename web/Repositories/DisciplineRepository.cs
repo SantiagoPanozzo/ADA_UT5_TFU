@@ -17,9 +17,14 @@ public class DisciplineRepository
         return _disciplines;
     }
 
-    public Persona GetById(string name)
+    public IDiscipline GetById(string name)
     {
-        return _disciplines.FirstOrDefault(p => p.Name == name);
+        var discipline = _disciplines.FirstOrDefault(d => d.Name == name);
+        if (discipline == null)
+        {
+            throw new ArgumentException("Discipline with that name was not found");
+        }
+        return discipline;
     }
     
     public void Remove(string name)
