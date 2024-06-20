@@ -7,7 +7,7 @@ using web.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-var userRepository = new UsuarioRepository();
+var userRepository = UsuarioRepository.GetInstance();
 var fencingRepository = FencingRepository.GetInstance();
 var manager = DisciplineManager.GetInstance();
 var athleteFactory = AthleteFactory.GetInstance();
