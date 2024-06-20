@@ -2,16 +2,16 @@ using web.Models;
 
 namespace web.Repositories;
 
-public class UsuarioRepository
+public class UserRepository
 {
-    private static UsuarioRepository _instance;
-    private UsuarioRepository()
+    private static UserRepository _instance;
+    private UserRepository()
     {
     }
 
-    public static UsuarioRepository GetInstance()
+    public static UserRepository GetInstance()
     {
-        return _instance ??= new UsuarioRepository();
+        return _instance ??= new UserRepository();
     }
 
     private readonly List<BaseUser> _users = new List<BaseUser>();

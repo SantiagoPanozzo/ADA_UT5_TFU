@@ -5,29 +5,35 @@ using web.Models.Factories;
 using web.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
 
-var userRepository = UsuarioRepository.GetInstance();
+var userRepository = UserRepository.GetInstance();
 var fencingRepository = FencingRepository.GetInstance();
 var manager = DisciplineManager.GetInstance();
 var athleteFactory = AthleteFactory.GetInstance();
 var adminFactory = AdministratorFactory.GetInstance();
+var refereeFactory = RefereeFactory.GetInstance();
 
 var athlete = athleteFactory.Create("Juan", "Perez", "juanperez@correo.com", 12345678);
 var admin = adminFactory.Create("Pablo", "Pablo", "Pablo@correo.com", 55555555);
+var referee = refereeFactory.Create("Pablin", "Pablin", "pablin@correo.com", 33333333);
 
 userRepository.Add(athlete);
 userRepository.Add(admin);
+userRepository.Add(referee);
 
 manager.CreateFencingDisciplines(admin);
 
-var disciplines = fencingRepository.GetAll();
-
-app.MapGet("/user", () => userRepository.GetAll());
-
-app.MapGet("/fencingDisciplines", () => fencingRepository.GetAll());
-
 MatchDataDTO data = new MatchDataDTO("Fencing", "Rapier", "Juan", "5");
-app.MapGet("/calculate", () => manager.CalculateFencingDisciplines(admin, data));
+
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
+});
 
 app.Run();

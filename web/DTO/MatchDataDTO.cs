@@ -2,16 +2,21 @@ namespace web.Models;
 
 public class MatchDataDTO
 {
-	public string _sport {get; set;}
-	public string _discipline {get; set;}
-	public string _participant {get; set;}
-	public string _data {get; set;}
+	public string Sport {get; set;}
+	public string Discipline {get; set;}
+	public string Participant {get; set;}
+	public string Data {get; set;}
 
 	public MatchDataDTO(string sport, string discipline, string participant, string data)
 	{
-		_sport = sport;
-		_discipline = discipline;
-		_participant = participant;
-		_data = data;
+		Sport = sport;
+		Discipline = discipline;
+		Participant = participant;
+		Data = data;
+	}
+
+	public override string ToString()
+	{
+		return $"Sport: {Sport}, Discipline: {Discipline}, Participant: {Participant}, Data: {Data}";
 	}
 }
