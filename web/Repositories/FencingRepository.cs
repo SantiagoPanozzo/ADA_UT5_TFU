@@ -5,7 +5,16 @@ namespace web.Repositories;
 
 public class FencingRepository
 {
-    private List<IDiscipline> _disciplines = new List<IDiscipline>();
+
+    private static FencingRepository? _instance = null;
+    private FencingRepository() { }
+
+    public static FencingRepository GetInstance()
+    {
+        return _instance ??= new FencingRepository();
+    } 
+    
+    private List<IDiscipline> _disciplines = [];
     
     public void Add(IDiscipline discipline)
     {

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 var userRepository = new UsuarioRepository();
-var fencingRepository = new FencingRepository();
+var fencingRepository = FencingRepository.GetInstance();
 var manager = DisciplineManager.GetInstance();
 var athleteFactory = AthleteFactory.GetInstance();
 var adminFactory = AdministratorFactory.GetInstance();
@@ -20,6 +20,8 @@ userRepository.Add(athlete);
 userRepository.Add(admin);
 
 manager.CreateFencingDisciplines(admin);
+
+var disciplines = fencingRepository.GetAll();
 
 app.MapGet("/user", () => userRepository.GetAll());
 

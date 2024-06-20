@@ -24,7 +24,7 @@ namespace web.Models
 			IHandler proxy = new ProxyAdmin();
 			proxy.SetNext(FencingFactory.getInstance());
 			List<IDiscipline> disciplines = (List<IDiscipline>)(proxy.Handle(user));
-			FencingRepository fencingRep = new FencingRepository();
+			FencingRepository fencingRep = FencingRepository.GetInstance();
 			foreach (var dis in disciplines)
 			{
 			    fencingRep.Add(dis);
@@ -35,7 +35,7 @@ namespace web.Models
 		public double CalculateFencingDisciplines(BaseUser user, MatchDataDTO data)
 		{
 			IHandler proxy = new ProxyReferee();
-			FencingRepository fencingRep = new FencingRepository();
+			FencingRepository fencingRep = FencingRepository.GetInstance();
 			IHandler discipline = (IHandler)fencingRep.GetByName(data._discipline);
 			proxy.SetNext(discipline);
 			return (double)(proxy.Handle((user, data)));
