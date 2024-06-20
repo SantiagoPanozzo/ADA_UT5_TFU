@@ -1,6 +1,6 @@
 namespace web.Interfaces;
 
-public interface ISportFactory
+public interface ISportFactory<T> where T : IDiscipline
 {
-	List<IDiscipline> CreateDisciplines();
+	List<T> CreateDisciplines();
 }

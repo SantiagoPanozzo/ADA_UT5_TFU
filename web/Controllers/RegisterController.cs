@@ -10,7 +10,7 @@ namespace web.Controllers;
 [Route("[controller]")]
 public class RegisterController : ControllerBase
 {
-    private readonly UserService _userService = UserService.GetInstance();
+    private readonly UserManager _userManager = UserManager.GetInstance();
     
     [HttpPost]
     public ActionResult<BaseUser> Post(UserRegistrationDTO user)
@@ -18,18 +18,18 @@ public class RegisterController : ControllerBase
         switch (user.Type)
         {
             case UserType.Administrator:
-                _userService.AddAdministrator(user.Name, user.LastName, user.Email, user.Cedula, user.Password);
+                _userManager.AddAdministrator(user.Name, user.LastName, user.Email, user.Cedula, user.Password);
                 break;
             case UserType.Athlete:
-                _userService.AddAthlete(user.Name, user.LastName, user.Email, user.Cedula, user.Password);
+                _userManager.AddAthlete(user.Name, user.LastName, user.Email, user.Cedula, user.Password);
                 break;
             case UserType.Referee:
-                _userService.AddReferee(user.Name, user.LastName, user.Email, user.Cedula, user.Password);
+                _userManager.AddReferee(user.Name, user.LastName, user.Email, user.Cedula, user.Password);
                 break;
             default:
                 throw new Exception("Invalid user type");
         }
-        return Ok(_userService.GetUserById(user.Cedula));
+        return Ok(_userManager.GetUserById(user.Cedula));
     }
     
 }

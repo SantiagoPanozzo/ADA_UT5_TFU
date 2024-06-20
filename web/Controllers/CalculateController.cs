@@ -8,7 +8,7 @@ namespace web.Controllers;
 [Route("[controller]")]
 public class CalculateController : ControllerBase
 {
-    DisciplineManager _disciplineManager = DisciplineManager.GetInstance();
+    FencingManager _fencingManager = FencingManager.GetInstance();
     UserRepository _userRepository = UserRepository.GetInstance();
     
     /* A este hay que tirarle en el body de la request un JSON tipo así
@@ -22,10 +22,11 @@ public class CalculateController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Double>> Post(MatchDataDTO data)
     {
-        var referee = _userRepository.GetById(33333333);
+        var referee = _userRepository.GetByKey(33333333);
         try
         {
-            var result = _disciplineManager.CalculateFencingDisciplines(referee, data);
+            var result = _fencingManager.CalculateDisciplines(referee, data);
+            // acá se guarda en algun lado
             return Ok(result);
         }
         catch (UnauthorizedAccessException e)

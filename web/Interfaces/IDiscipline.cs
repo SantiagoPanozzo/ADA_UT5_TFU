@@ -1,3 +1,5 @@
+using web.Utils;
+
 namespace web.Interfaces;
 
 public interface IDiscipline

@@ -1,32 +1,22 @@
-using web.Models;
 using web.Interfaces;
 
 namespace web.Repositories;
 
-public class FencingRepository
+public abstract class BaseDisciplineRepository<T>: IRepository<T, string> where T : IDiscipline
 {
-
-    private static FencingRepository? _instance = null;
-    private FencingRepository() { }
-
-    public static FencingRepository GetInstance()
-    {
-        return _instance ??= new FencingRepository();
-    } 
+    private List<T> _disciplines = [];
     
-    private List<IDiscipline> _disciplines = [];
-    
-    public void Add(IDiscipline discipline)
+    public void Add(T discipline)
     {
         _disciplines.Add(discipline);
     }
     
-    public List<IDiscipline> GetAll()
+    public List<T> GetAll()
     {
         return _disciplines;
     }
 
-    public IDiscipline GetByName(string name)
+    public T GetByKey(string name)
     {
         var discipline = _disciplines.FirstOrDefault(d => d.Name == name);
         if (discipline == null)
@@ -40,8 +30,8 @@ public class FencingRepository
     {
         _disciplines.RemoveAll(p => p.Name == name);
     }
-    
-    public void Update(IDiscipline discipline)
+
+    public void Update(T discipline)
     {
         var index = _disciplines.FindIndex(p => p.Name == discipline.Name);
         _disciplines[index] = discipline;

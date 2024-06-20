@@ -5,22 +5,31 @@ using web.Repositories;
 
 namespace web.Services;
 
-public class UserService
+public class UserManager
 {
-    private static UserService? _instance;
-    private UserService()
-    {
-    }
-
-    public static UserService GetInstance()
-    {
-        return _instance ??= new UserService();
-    }
-    
     private readonly UserRepository _userRepository = UserRepository.GetInstance();
     private readonly AthleteFactory _athleteFactory = AthleteFactory.GetInstance();
     private readonly AdministratorFactory _administratorFactory = AdministratorFactory.GetInstance();
     private readonly RefereeFactory _refereeFactory = RefereeFactory.GetInstance();
+    
+    private static UserManager? _instance;
+    private UserManager()
+    {
+        var juan = _athleteFactory.Create("Juan", "Perez", "juanperez@correo.com", 12345678, "contra");
+        var pablo = _administratorFactory.Create("Pablo", "Pablo", "Pablo@correo.com", 55555555, "admin");
+        var pablin = _refereeFactory.Create("Pablin", "Pablin", "pablin@correo.com", 33333333, "contra");
+        
+        _userRepository.Add(juan);
+        _userRepository.Add(pablo);
+        _userRepository.Add(pablin);
+    }
+
+    public static UserManager GetInstance()
+    {
+        return _instance ??= new UserManager();
+    }
+    
+
     
     public void AddAthlete(string name, string lastName, string email, int cedula, string password)
     {
@@ -47,7 +56,7 @@ public class UserService
     
     public BaseUser GetUserById(int cedula)
     {
-        return _userRepository.GetById(cedula);
+        return _userRepository.GetByKey(cedula);
     }
     
     public void RemoveUser(int cedula)
@@ -62,7 +71,7 @@ public class UserService
     
     public void AuthenticateUser (int cedula, string password)
     {
-        var user = _userRepository.GetById(cedula);
+        var user = _userRepository.GetByKey(cedula);
         if (user.Password != password)
         {
             throw new ArgumentException("Invalid password");

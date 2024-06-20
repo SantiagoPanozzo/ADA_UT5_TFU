@@ -4,6 +4,13 @@ namespace web.Models;
 
 public abstract class AbstractHandler : IHandler
 {
+	public AbstractHandler() { }
+
+	public AbstractHandler(IHandler next)
+	{
+		this._next = next;
+	}
+	
 	protected IHandler _next;
 
 	public IHandler SetNext(IHandler handler)

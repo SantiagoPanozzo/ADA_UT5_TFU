@@ -1,13 +1,14 @@
 using web.Interfaces;
+using web.Interfaces.Disciplines;
 
 namespace web.Models
 {
-	public class Saber : AbstractHandler, IDiscipline
+	public class Sword : AbstractHandler, IDiscipline, IFencing
 	{
-		private string _name = "Saber";
+		private string _name = "Sword";
 		public string Name {get => _name; set => _name = value;}
 
-		public Saber() {}
+		public Sword() {}
 
 		public override object Handle(object request) {
 			return Calculate(request);
