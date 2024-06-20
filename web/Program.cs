@@ -16,9 +16,9 @@ var athleteFactory = AthleteFactory.GetInstance();
 var adminFactory = AdministratorFactory.GetInstance();
 var refereeFactory = RefereeFactory.GetInstance();
 
-var athlete = athleteFactory.Create("Juan", "Perez", "juanperez@correo.com", 12345678);
-var admin = adminFactory.Create("Pablo", "Pablo", "Pablo@correo.com", 55555555);
-var referee = refereeFactory.Create("Pablin", "Pablin", "pablin@correo.com", 33333333);
+var athlete = athleteFactory.Create("Juan", "Perez", "juanperez@correo.com", 12345678, "contra");
+var admin = adminFactory.Create("Pablo", "Pablo", "Pablo@correo.com", 55555555, "admin");
+var referee = refereeFactory.Create("Pablin", "Pablin", "pablin@correo.com", 33333333, "contra");
 
 userRepository.Add(athlete);
 userRepository.Add(admin);

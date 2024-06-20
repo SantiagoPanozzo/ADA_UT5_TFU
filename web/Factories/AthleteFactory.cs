@@ -12,8 +12,8 @@ public class AthleteFactory : BaseUserFactory
         }
         return instance;
     }
-    public override Athlete Create(string name, string lastName, string email, int cedula)
+    public override Athlete Create(string name, string lastName, string email, int cedula, string password)
     {
-        return new Athlete(name, lastName, email, cedula);
+        return new Athlete(name, lastName, email, cedula, password);
     }
 }
