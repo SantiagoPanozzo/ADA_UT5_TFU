@@ -2,25 +2,22 @@ using web.Interfaces;
 
 namespace web.Models
 {
-	public class ProxyReferee : IUserHandler
+	public class ProxyReferee : AbstractHandler
 	{
-		public IHandler? Next {get; set;}
-
-		public ProxyReferee(IHandler handler)
-		{
-			Next = handler;
-		}
-
-		private bool checkAccess(BaseUser? user)
+		private bool checkAccess(object user)
 		{
 			return user is Referee;
 		}
 
-		public void Handle(BaseUser? user)
-		{	
-			if (checkAccess(user))
+		public override object Handle(object request)
+		{
+			if (checkAccess(request) && (this._next != null))
 			{
-				Next?.Handle();
+				return base.Handle(request);
+			}
+			else
+			{
+				return null;
 			}
 		}
 	}

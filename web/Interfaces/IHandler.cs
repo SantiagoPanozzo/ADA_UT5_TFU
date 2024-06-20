@@ -4,6 +4,6 @@ namespace web.Interfaces;
 
 public interface IHandler
 {
-	public IHandler? Next {get; set;}
-	public void Handle();
+	IHandler SetNext(IHandler handler);
+	object Handle(object request);
 }

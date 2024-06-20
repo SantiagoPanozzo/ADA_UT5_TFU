@@ -2,25 +2,22 @@ using web.Interfaces;
 
 namespace web.Models
 {
-	public class ProxyAthlete : IUserHandler
+	public class ProxyAthlete : AbstractHandler
 	{
-		public IHandler? Next {get; set;}
-
-		public ProxyAthlete(IHandler handler)
-		{
-			Next = handler;
-		}
-
-		private bool checkAccess(BaseUser? user)
+		private bool checkAccess(object user)
 		{
 			return user is Athlete;
 		}
 
-		public void Handle(BaseUser? user)
-		{	
-			if (checkAccess(user))
+		public override object Handle(object request)
+		{
+			if (checkAccess(request) && (this._next != null))
 			{
-				Next?.Handle();
+				return base.Handle(request);
+			}
+			else
+			{
+				return null;
 			}
 		}
 	}

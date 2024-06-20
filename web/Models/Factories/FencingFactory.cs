@@ -5,27 +5,29 @@ namespace web.Models
 	public class FencingFactory : ISportFactory, IHandler
 	{
 		private static FencingFactory _fencingFactory {get; set;}
-		private List<IDiscipline> _disciplines {get; set;}
-		public IHandler? Next {get; set;}
 
-		private FencingFactory(IHandler? handler)
-		{
-			Next = handler;
-			_disciplines = new List<IDiscipline>();
-		}
+		private IHandler? _next {get; set;}
 
-		public static ISportFactory getInstance()
+		private FencingFactory(){}
+
+		public static FencingFactory getInstance()
 		{
 			if (_fencingFactory == null)
 			{
-				_fencingFactory = new FencingFactory(null);
+				_fencingFactory = new FencingFactory();
 			}
 			return _fencingFactory;
 		}
 
-		public void Handle()
+		public IHandler SetNext(IHandler handler)
+        {
+            this._next = handler;
+            return handler;
+        }
+
+		public object Handle(object request)
 		{
-			CreateDisciplines();
+			return CreateDisciplines();
 		}
 
 		public List<IDiscipline> CreateDisciplines() {
