@@ -2,22 +2,24 @@ using web.Interfaces;
 
 namespace web.Models
 {
-	public class FencingFactory : ISportFactory
+	public class FencingFactory : AbstractHandler, ISportFactory
 	{
-		private FencingFactory _fencingFactory {get; set;}
-		private List<IDiscipline> _disciplines {get; set;}
+		private static FencingFactory _fencingFactory {get; set;}
 
-		private FencingFactory()
-		{
-		}
+		private FencingFactory(){}
 
-		public ISportFactory getInstance()
+		public static FencingFactory getInstance()
 		{
 			if (_fencingFactory == null)
 			{
 				_fencingFactory = new FencingFactory();
 			}
 			return _fencingFactory;
+		}
+
+		public override object Handle(object request)
+		{
+			return CreateDisciplines();
 		}
 
 		public List<IDiscipline> CreateDisciplines() {

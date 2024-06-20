@@ -4,6 +4,16 @@ namespace web.Repositories;
 
 public class UsuarioRepository
 {
+    private static UsuarioRepository _instance;
+    private UsuarioRepository()
+    {
+    }
+
+    public static UsuarioRepository GetInstance()
+    {
+        return _instance ??= new UsuarioRepository();
+    }
+
     private readonly List<BaseUser> _users = new List<BaseUser>();
     
     public void Add(BaseUser baseUser)

@@ -3,9 +3,18 @@ using web.Interfaces;
 
 namespace web.Repositories;
 
-public class DisciplineRepository
+public class FencingRepository
 {
-    private List<IDiscipline> _disciplines = new List<IDiscipline>();
+
+    private static FencingRepository? _instance = null;
+    private FencingRepository() { }
+
+    public static FencingRepository GetInstance()
+    {
+        return _instance ??= new FencingRepository();
+    } 
+    
+    private List<IDiscipline> _disciplines = [];
     
     public void Add(IDiscipline discipline)
     {
@@ -17,7 +26,7 @@ public class DisciplineRepository
         return _disciplines;
     }
 
-    public IDiscipline GetById(string name)
+    public IDiscipline GetByName(string name)
     {
         var discipline = _disciplines.FirstOrDefault(d => d.Name == name);
         if (discipline == null)
