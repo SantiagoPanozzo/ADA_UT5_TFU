@@ -4,7 +4,7 @@ namespace web.Models
 {
 	public class ProxyReferee : AbstractHandler
 	{
-		private bool checkAccess(object user)
+		private bool CheckAccess(object user)
 		{
 			return user is Referee;
 		}
@@ -12,7 +12,7 @@ namespace web.Models
 		public override object Handle(object request)
 		{
 			(BaseUser user, MatchDataDTO data) = ((BaseUser, MatchDataDTO))request;
-			if (checkAccess(user))
+			if (CheckAccess(user))
 			{
 				return base.Handle(data);
 			}

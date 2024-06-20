@@ -4,14 +4,14 @@ namespace web.Models
 {
 	public class ProxyAdmin : AbstractHandler
 	{
-		private bool checkAccess(object user)
+		private bool CheckAccess(object user)
 		{
 			return user is Administrator;
 		}
 
 		public override object Handle(object request)
 		{
-			if (checkAccess(request))
+			if (CheckAccess(request))
 			{
 				return base.Handle(request);
 			}
