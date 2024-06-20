@@ -2,7 +2,7 @@ using web.Models;
 
 namespace web.Repositories;
 
-public class UserRepository
+public class UserRepository : IRepository<BaseUser, int>
 {
     private static UserRepository _instance;
     private UserRepository()
@@ -26,7 +26,7 @@ public class UserRepository
         return _users;
     }
 
-    public BaseUser GetById(int cedula)
+    public BaseUser GetByKey(int cedula)
     {
         var user = _users.FirstOrDefault(p => p.Cedula == cedula);
         if (user == null)
@@ -35,6 +35,11 @@ public class UserRepository
         }
     
         return user;
+    }
+    
+    public List<BaseUser> GetAllByType(Type type)
+    {
+        return _users.Where(p => p.GetType() == type).ToList();
     }
     
     public void Remove(int cedula)
