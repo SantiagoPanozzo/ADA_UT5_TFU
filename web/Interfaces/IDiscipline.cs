@@ -3,5 +3,5 @@ namespace web.Interfaces;
 public interface IDiscipline
 {
 	public string Name {get; set;}
-	double Calculate();
+	double Calculate(object request);
 }

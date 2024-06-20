@@ -24,19 +24,21 @@ namespace web.Models
 			IHandler proxy = new ProxyAdmin();
 			proxy.SetNext(FencingFactory.getInstance());
 			List<IDiscipline> disciplines = (List<IDiscipline>)(proxy.Handle(user));
-			FencingRepository disciplineRep = new FencingRepository();
+			FencingRepository fencingRep = new FencingRepository();
 			foreach (var dis in disciplines)
 			{
-			    disciplineRep.Add(dis);
+			    fencingRep.Add(dis);
 			}
-			return disciplineRep.GetAll();
+			return fencingRep.GetAll();
 		}
 
-		public double CalculateFencingDisciplines(BaseUser user)
+		public double CalculateFencingDisciplines(BaseUser user, MatchDataDTO data)
 		{
 			IHandler proxy = new ProxyReferee();
-			proxy.SetNext(FencingFactory.getInstance());
-			return (double)(proxy.Handle(user));
+			FencingRepository fencingRep = new FencingRepository();
+			IHandler discipline = (IHandler)fencingRep.GetByName(data._discipline);
+			proxy.SetNext(discipline);
+			return (double)(proxy.Handle((user, data)));
 		}
 	}
 }

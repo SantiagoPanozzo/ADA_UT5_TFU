@@ -2,24 +2,24 @@ using web.Interfaces;
 
 namespace web.Models
 {
-	public class ProxyAdmin : AbstractHandler
+	public class ProxyReferee : AbstractHandler
 	{
 		private bool checkAccess(object user)
 		{
-			return user is Administrator;
+			return user is Referee;
 		}
 
 		public override object Handle(object request)
 		{
-			if (checkAccess(request) && (this._next != null))
+			(BaseUser user, MatchDataDTO data) = ((BaseUser, MatchDataDTO))request;
+			if (checkAccess(user))
 			{
-				return base.Handle(request);
+				return base.Handle(data);
 			}
 			else
 			{
 				return null;
 			}
 		}
-
 	}
 }

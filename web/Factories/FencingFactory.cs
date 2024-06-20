@@ -2,11 +2,9 @@ using web.Interfaces;
 
 namespace web.Models
 {
-	public class FencingFactory : ISportFactory, IHandler
+	public class FencingFactory : AbstractHandler, ISportFactory
 	{
 		private static FencingFactory _fencingFactory {get; set;}
-
-		private IHandler? _next {get; set;}
 
 		private FencingFactory(){}
 
@@ -19,13 +17,7 @@ namespace web.Models
 			return _fencingFactory;
 		}
 
-		public IHandler SetNext(IHandler handler)
-        {
-            this._next = handler;
-            return handler;
-        }
-
-		public object Handle(object request)
+		public override object Handle(object request)
 		{
 			return CreateDisciplines();
 		}

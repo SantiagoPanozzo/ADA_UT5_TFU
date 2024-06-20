@@ -11,7 +11,7 @@ namespace web.Models
 
 		public override object Handle(object request)
 		{
-			if (checkAccess(request) && (this._next != null))
+			if (checkAccess(request))
 			{
 				return base.Handle(request);
 			}

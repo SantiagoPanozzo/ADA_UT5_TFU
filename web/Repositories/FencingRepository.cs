@@ -17,7 +17,7 @@ public class FencingRepository
         return _disciplines;
     }
 
-    public IDiscipline GetById(string name)
+    public IDiscipline GetByName(string name)
     {
         var discipline = _disciplines.FirstOrDefault(d => d.Name == name);
         if (discipline == null)

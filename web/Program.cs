@@ -7,11 +7,25 @@ using web.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-var usuarioRepository = new UsuarioRepository();
+var userRepository = new UsuarioRepository();
+var fencingRepository = new FencingRepository();
+var manager = DisciplineManager.GetInstance();
 var athleteFactory = AthleteFactory.GetInstance();
-var athlete = athleteFactory.Create("Juan", "Perez", "juanperez@correo.com", 12345678);
-usuarioRepository.Add(athlete);
+var adminFactory = AdministratorFactory.GetInstance();
 
-app.MapGet("/user", () => usuarioRepository.GetAll());
+var athlete = athleteFactory.Create("Juan", "Perez", "juanperez@correo.com", 12345678);
+var admin = adminFactory.Create("Pablo", "Pablo", "Pablo@correo.com", 55555555);
+
+userRepository.Add(athlete);
+userRepository.Add(admin);
+
+manager.CreateFencingDisciplines(admin);
+
+app.MapGet("/user", () => userRepository.GetAll());
+
+app.MapGet("/fencingDisciplines", () => fencingRepository.GetAll());
+
+MatchDataDTO data = new MatchDataDTO("Fencing", "Rapier", "Juan", "5");
+app.MapGet("/calculate", () => manager.CalculateFencingDisciplines(admin, data));
 
 app.Run();
