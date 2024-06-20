@@ -11,8 +11,8 @@ public class AthleticsManager : ISportManager<IAthletics>
 
     private AthleticsManager()
     {
-        UserService userService = UserService.GetInstance();
-        var admin = userService.GetUserById(55555555);
+        UserManager userManager = UserManager.GetInstance();
+        var admin = userManager.GetUserById(55555555);
         this.CreateDisciplines(admin);
     }
     

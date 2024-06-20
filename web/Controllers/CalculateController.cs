@@ -26,6 +26,7 @@ public class CalculateController : ControllerBase
         try
         {
             var result = _fencingManager.CalculateDisciplines(referee, data);
+            // acá se guarda en algun lado
             return Ok(result);
         }
         catch (UnauthorizedAccessException e)

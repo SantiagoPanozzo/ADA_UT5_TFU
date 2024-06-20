@@ -11,8 +11,8 @@ namespace web.Models
 
 		private FencingManager()
 		{
-			UserService userService = UserService.GetInstance();
-			var admin = userService.GetUserById(55555555);
+			UserManager userManager = UserManager.GetInstance();
+			var admin = userManager.GetUserById(55555555);
 			this.CreateDisciplines(admin);
 		}
 

@@ -5,15 +5,15 @@ using web.Repositories;
 
 namespace web.Services;
 
-public class UserService
+public class UserManager
 {
     private readonly UserRepository _userRepository = UserRepository.GetInstance();
     private readonly AthleteFactory _athleteFactory = AthleteFactory.GetInstance();
     private readonly AdministratorFactory _administratorFactory = AdministratorFactory.GetInstance();
     private readonly RefereeFactory _refereeFactory = RefereeFactory.GetInstance();
     
-    private static UserService? _instance;
-    private UserService()
+    private static UserManager? _instance;
+    private UserManager()
     {
         var juan = _athleteFactory.Create("Juan", "Perez", "juanperez@correo.com", 12345678, "contra");
         var pablo = _administratorFactory.Create("Pablo", "Pablo", "Pablo@correo.com", 55555555, "admin");
@@ -24,9 +24,9 @@ public class UserService
         _userRepository.Add(pablin);
     }
 
-    public static UserService GetInstance()
+    public static UserManager GetInstance()
     {
-        return _instance ??= new UserService();
+        return _instance ??= new UserManager();
     }
     
 

@@ -9,12 +9,12 @@ namespace web.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly UserService _userService = UserService.GetInstance();
+    private readonly UserManager _userManager = UserManager.GetInstance();
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<BaseUser>>> Get()
     {
-        return Ok(_userService.GetAllUsers());
+        return Ok(_userManager.GetAllUsers());
     }
 
     [HttpGet(template: "{id}")]
@@ -22,7 +22,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            return _userService.GetUserById(cedula);   
+            return _userManager.GetUserById(cedula);   
         } catch (ArgumentException e)
         {
             return NotFound(e.Message);
@@ -34,7 +34,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            _userService.AuthenticateUser(baseUser.Cedula, baseUser.Password);
+            _userManager.AuthenticateUser(baseUser.Cedula, baseUser.Password);
         }
         catch (ArgumentException e)
         {
@@ -43,8 +43,8 @@ public class UserController : ControllerBase
         
         try
         {
-            _userService.UpdateUser(baseUser);
-            return Ok(_userService.GetUserById(baseUser.Cedula));
+            _userManager.UpdateUser(baseUser);
+            return Ok(_userManager.GetUserById(baseUser.Cedula));
         } catch (ArgumentException e)
         {
             return NotFound(e.Message);
