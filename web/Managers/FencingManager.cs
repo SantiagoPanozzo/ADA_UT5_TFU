@@ -46,7 +46,9 @@ namespace web.Models
 			FencingRepository disciplineRep = FencingRepository.GetInstance();
 			IHandler discipline = (IHandler)disciplineRep.GetByKey(data.Discipline);
 			proxy.SetNext(discipline);
-			return (double)(proxy.Handle((user, data)));
+			var points = (double)(proxy.Handle((user, data)));
+			var athlete = UserManager.GetInstance().GetUserById(data.ParticipantCedula);
+			return ((Athlete)athlete).AddPoints(points);
 		}
 		
 		public List<IFencing> GetAll()

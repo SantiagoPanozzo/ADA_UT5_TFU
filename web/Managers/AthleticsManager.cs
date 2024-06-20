@@ -40,7 +40,9 @@ public class AthleticsManager : ISportManager<IAthletics>
         IHandler proxy = new ProxyReferee();
         IHandler discipline = (IHandler)_athleticsRepository.GetByKey(data.Discipline);
         proxy.SetNext(discipline);
-        return (double)(proxy.Handle((user, data)));
+        var points = (double)(proxy.Handle((user, data)));
+        var athlete = UserManager.GetInstance().GetUserById(data.ParticipantCedula);
+        return ((Athlete)athlete).AddPoints(points);
     }
     
     public List<IAthletics> GetAll()

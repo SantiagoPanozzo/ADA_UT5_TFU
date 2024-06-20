@@ -4,5 +4,5 @@ public enum UserType
 {
     Administrator,
     Athlete,
-    Referee
+    Referee 
 }

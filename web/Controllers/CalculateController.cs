@@ -15,14 +15,14 @@ public class CalculateController : ControllerBase
     {
         "Sport": "Fencing",
         "Discipline": "Rapier",
-        "Participant" : "Juan",
+        "Participant" : 12345678,
         "Data": "5"
     } 
     */
     [HttpPost]
     public async Task<ActionResult<Double>> Post(MatchDataDTO data)
     {
-        var referee = _userRepository.GetByKey(33333333);
+        var referee = _userRepository.GetByKey(data.RefereeCedula);
         try
         {
             var result = _fencingManager.CalculateDisciplines(referee, data);
