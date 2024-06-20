@@ -36,7 +36,7 @@ namespace web.Models
 		{
 			IHandler proxy = new ProxyReferee();
 			FencingRepository fencingRep = FencingRepository.GetInstance();
-			IHandler discipline = (IHandler)fencingRep.GetByName(data._discipline);
+			IHandler discipline = (IHandler)fencingRep.GetByName(data.Discipline);
 			proxy.SetNext(discipline);
 			return (double)(proxy.Handle((user, data)));
 		}

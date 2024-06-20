@@ -18,7 +18,8 @@ namespace web.Models
 			}
 			else
 			{
-				return null;
+				throw new UnauthorizedAccessException(
+					"Unauthorized access to the method CalculateFencingDisciplines. Only referees can access this method.");
 			}
 		}
 	}
