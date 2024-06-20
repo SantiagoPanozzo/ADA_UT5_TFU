@@ -12,9 +12,9 @@ public class RefereeFactory : BaseUserFactory
         }
         return instance;
     }
-    public override Referee Create(string name, string lastName, string email, int cedula)
+    public override Referee Create(string name, string lastName, string email, int cedula, string password)
     {
-        return new Referee(name, lastName, email, cedula);
+        return new Referee(name, lastName, email, cedula, password);
     }
     
 }

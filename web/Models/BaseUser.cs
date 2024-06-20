@@ -1,11 +1,14 @@
+using web.Utils;
+
 namespace web.Models;
 
-public abstract class BaseUser (string name, string lastName, string email, int cedula)
+public abstract class BaseUser (string name, string lastName, string email, int cedula, string password)
 {
     private string _name = name;
     private string _lastName = lastName;
     private string _email = email;
     private int _cedula = cedula;
+    private string _password = password;
     
     public string Name
     {
@@ -29,6 +32,12 @@ public abstract class BaseUser (string name, string lastName, string email, int 
     {
         get => _cedula; 
         set => _cedula = value;
+    }
+    
+    public string Password
+    {
+        get => _password;
+        set => _password = value;
     }
     
     public override string ToString()

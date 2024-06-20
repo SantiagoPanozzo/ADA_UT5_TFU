@@ -12,8 +12,8 @@ public class AdministratorFactory : BaseUserFactory
         }
         return instance;
     }
-    public override Administrator Create(string name, string lastName, string email, int cedula)
+    public override Administrator Create(string name, string lastName, string email, int cedula, string password)
     {
-        return new Administrator(name, lastName, email, cedula);
+        return new Administrator(name, lastName, email, cedula, password);
     }
 }
